@@ -1,0 +1,299 @@
+:root {
+            --bg-deep: #050608;
+            --accent-blue: #3d8aff;
+            --bright-cyan: #4facfe;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --border-light: rgba(255, 255, 255, 0.1);
+            --text-main: #e0e6ed;
+            --text-dim: #94a3b8;
+            --glow-blue: rgba(61, 138, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            /* Fonte base ajustada para peso 400 */
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 400;
+            min-height: 100vh;
+            padding: 40px 20px;
+            background: radial-gradient(circle at 50% 0%, #101929 0%, #050608 100%);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- NOVA ANIMAÇÃO DE ONDA DE FUNDO --- */
+        body::before {
+            content: '';
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 200%; /* Mais largo para permitir o movimento */
+            height: 200px;
+            /* Padrão de onda SVG sutil */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%233d8aff' fill-opacity='0.03' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,160C960,139,1056,149,1152,160C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: 50% 100%; /* Garante que o padrão se repita corretamente */
+            background-repeat: repeat-x;
+            z-index: -1; /* Fica atrás de tudo */
+            animation: waveMove 20s linear infinite; /* Movimento lento e contínuo */
+        }
+
+        @keyframes waveMove {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+        /* -------------------------------------- */
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative; /* Garante que o conteúdo fique sobre a onda */
+            z-index: 1;
+        }
+
+        /* --- HEADER & NAV (Tipografia Melhorada) --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+            padding: 10px 0;
+            animation: fadeDown 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .logo-box img {
+            height: 45px;
+            filter: drop-shadow(0 0 8px var(--glow-blue));
+            transition: 0.4s;
+        }
+
+        nav a {
+            color: var(--text-dim);
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 14px;
+            /* Fonte um pouco mais pesada e espaçada para o menu */
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            position: relative;
+            padding: 4px 0;
+            transition: 0.3s;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; width: 0; height: 1px;
+            background: var(--accent-blue);
+            box-shadow: 0 0 8px var(--glow-blue);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transform: translateX(-50%);
+        }
+
+        nav a:hover { color: #fff; }
+        nav a:hover::after { width: 100%; }
+
+        .user-badge {
+            border: 1px solid var(--border-light);
+            padding: 6px 18px !important;
+            border-radius: 20px;
+            background: var(--glass-bg);
+            color: #fff !important;
+            font-weight: 600; /* Destaque para o usuário */
+        }
+
+        /* --- SEÇÃO HERO (Tipografia Premium) --- */
+        .hero-card {
+            background: linear-gradient(135deg, rgba(13, 17, 23, 0.6), rgba(10, 20, 40, 0.6));
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-light);
+            border-radius: 40px;
+            padding: 80px 40px;
+            text-align: center;
+            position: relative;
+            margin-bottom: 60px;
+            overflow: hidden;
+            animation: 
+                heroPowerUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+                floatCard 6s ease-in-out infinite 1.2s; 
+            opacity: 0;
+        }
+
+        .hero-card::after {
+            content: '';
+            position: absolute;
+            top: -100%; left: -100%; width: 300%; height: 300%;
+            background: linear-gradient(45deg, transparent, rgba(61, 138, 255, 0.05), transparent);
+            transform: rotate(45deg);
+            animation: scanLight 10s infinite linear;
+            pointer-events: none;
+        }
+
+        @keyframes heroPowerUp {
+            0% { opacity: 0; transform: translateY(40px) scale(0.9); filter: blur(10px) brightness(0); }
+            60% { opacity: 1; transform: translateY(-5px) scale(1.02); filter: blur(0px) brightness(1.3); }
+            100% { opacity: 1; transform: translateY(0) scale(1); filter: blur(0px) brightness(1); }
+        }
+
+        @keyframes floatCard {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes scanLight {
+            0% { top: -120%; left: -120%; }
+            20%, 100% { top: 120%; left: 120%; }
+        }
+
+        /* Tipografia do Título Principal */
+        .hero-card h1 {
+            font-size: 64px; /* Maior impacto */
+            font-weight: 300; /* "Samsung" mais fino */
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        /* "Customer Connect" com onda e peso extra */
+        .hero-card h1 b {
+            font-weight: 800; /* Extra Bold */
+            display: block;
+            color: transparent;
+            background: linear-gradient(90deg, var(--accent-blue) 0%, var(--bright-cyan) 50%, var(--accent-blue) 100%);
+            background-size: 200% auto;
+            background-clip: text;
+            -webkit-background-clip: text;
+            animation: blueWaveFlow 3s linear infinite;
+            filter: drop-shadow(0 0 5px rgba(79, 172, 254, 0.3));
+            letter-spacing: -2px; /* Letras mais juntas para impacto */
+            line-height: 1.1;
+        }
+
+        @keyframes blueWaveFlow {
+            to { background-position: 200% center; }
+        }
+
+        .hero-card p {
+            color: var(--text-dim);
+            max-width: 540px;
+            margin: 0 auto 30px;
+            line-height: 1.8; /* Melhor leitura */
+            font-size: 16px;
+            font-weight: 300; /* Texto de apoio mais leve */
+            animation: fadeIn 1s ease-out 1.4s forwards;
+            opacity: 0;
+        }
+
+        .btn-main {
+            background: transparent;
+            border: 2px solid var(--accent-blue); /* Borda ligeiramente mais grossa */
+            color: #fff;
+            padding: 16px 45px; /* Botão mais robusto */
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.4s;
+            text-transform: uppercase;
+            letter-spacing: 2px; /* Mais espaçamento no botão */
+            animation: fadeIn 1s ease-out 1.6s forwards;
+            opacity: 0;
+        }
+
+        .btn-main:hover {
+            background: var(--accent-blue);
+            box-shadow: 0 0 40px var(--glow-blue);
+            transform: scale(1.05);
+        }
+
+        /* --- DASHBOARD GRID (Tipografia dos Cards) --- */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            animation: fadeIn 1s ease-out 1.8s forwards;
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--border-light);
+            border-radius: 30px; /* Bordas mais arredondadas */
+            padding: 35px;
+            transition: 0.3s;
+            animation: oledPulse 4s infinite ease-in-out;
+        }
+
+        @keyframes oledPulse {
+            0%, 100% { box-shadow: 0 0 0 rgba(61, 138, 255, 0); border-color: var(--border-light); }
+            50% { box-shadow: 0 0 25px rgba(61, 138, 255, 0.15); border-color: rgba(61, 138, 255, 0.3); }
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            background: rgba(61, 138, 255, 0.06);
+            transform: translateY(-8px);
+        }
+
+        /* Títulos dos Cards */
+        .card-label {
+            color: var(--text-dim);
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px; /*Tracking amplo para visual técnico */
+            margin-bottom: 5px;
+        }
+
+        /* Valores dos Cards */
+        .card-value {
+            font-size: 38px; /* Maior */
+            font-weight: 800; /* Extra Bold */
+            color: #fff;
+            margin: 15px 0 5px;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .card-sub {
+            color: #4caf50;
+            font-size: 13px;
+            font-weight: 500;
+            display: flex; align-items: center; gap: 5px;
+        }
+
+        .team-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 15px;
+            font-weight: 400;
+        }
+        
+        .team-item strong {
+            font-weight: 700;
+            color: var(--accent-blue);
+        }
+
+        /* Responsividade */
+        @media (max-width: 900px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .hero-card h1 { font-size: 42px; }
+            header { flex-direction: column; gap: 20px; }
+            body::before { background-size: auto 100%; } /* Ajuste da onda no mobile */
+        }
