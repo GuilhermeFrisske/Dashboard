@@ -10,14 +10,25 @@
 <body>
 
 <div class="container">
-    <header>
+    <header class="header">
         <div class="logo-box">
             <img src="logo.png" alt="Samsung Logo">
         </div>
         <nav>
             <a href="#">Home</a>
             <a href="#">Analytics</a>
-            <a href="#">System</a>
+
+            <!-- Menu com seta -->
+            <div class="nav-dropdown">
+                <a href="#" class="nav-trigger">System ▾</a>
+                <div class="dropdown-menu">
+                    <a href="#">Configurações</a>
+                    <a href="#">Usuários</a>
+                    <a href="#">Relatórios</a>
+                    <a href="#">Segurança</a>
+                </div>
+            </div>
+
             <a href="#" class="user-badge">Login</a>
         </nav>
     </header>
@@ -25,7 +36,7 @@
     <main>
         <section class="hero-card">
             <h1>Samsung <b>Customer Connect</b></h1>
-            <p>Texto</p>
+            <p>Samsung Customer Connect connects Samsung with its customers, enabling transparent communication and valuable feedback to improve products, services, and support, while strengthening trust and customer satisfaction.</p>
             <button class="btn-main">Iniciar Conexão</button>
         </section>
 
@@ -43,7 +54,25 @@
             </div>
 
             <div class="card">
-                <div class="card-label">EQUIPE</div>
+                <div class="card-label">LOGÍSTICA</div>
+                <div class="card-value">0%</div>
+                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label"></div>
+                <div class="card-value">0%</div>
+                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
+            </div>
+
+            <div class="profile">
+                <div class="card-label"></div>
+                <div class="card-value">0%</div>
+                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
+            </div>
+
+            <div class="card">
+                <div class="card-label"></div>
                 <div style="margin-top:20px">
                     <div class="team-item"><span>Digital</span> <strong>0%</strong></div>
                     <div class="team-item"><span>Retenção</span> <strong>0%</strong></div>
@@ -52,6 +81,34 @@
         </div>
     </main>
 </div>
+
+<div class="glass-panel">
+    <div class="water-container">
+        <div class="drop-wave"></div>
+        <div class="drop-wave"></div>
+        <div class="drop-wave"></div>
+    </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const trigger = document.querySelector(".nav-trigger");
+    const dropdown = document.querySelector(".dropdown-menu");
+
+    trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        dropdown.classList.toggle("open");
+        trigger.classList.toggle("active");
+    });
+
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".nav-dropdown")) {
+            dropdown.classList.remove("open");
+            trigger.classList.remove("active");
+        }
+    });
+});
+</script>
 
 </body>
 </html>
