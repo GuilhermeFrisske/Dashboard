@@ -1,14 +1,21 @@
+/* =========================================
+   1. VARIÁVEIS GLOBAIS
+   ========================================= */
 :root { 
-    --bg-deep: #050608;
-    --accent-blue: #3d8aff;
+    --bg-deep: #020204;
+    --card-bg: #0d1117;
+    --accent-blue: #2d79f3;
     --bright-cyan: #4facfe;
     --glass-bg: rgba(255, 255, 255, 0.03);
     --border-light: rgba(255, 255, 255, 0.1);
-    --text-main: #e0e6ed;
-    --text-dim: #94a3b8;
-    --glow-blue: rgba(61, 138, 255, 0.4);
+    --text-main: #ffffff;
+    --text-dim: #8b9bb4;
+    --glow-blue: rgba(45, 121, 243, 0.4);
 }
 
+/* =========================================
+   2. RESET & BASE
+   ========================================= */
 * {
     margin: 0;
     padding: 0;
@@ -22,45 +29,31 @@ body {
     font-weight: 400;
     min-height: 100vh;
     padding: 40px 20px;
-    background: radial-gradient(circle at 50% 0%, #101929 0%, #050608 100%);
+    background: radial-gradient(circle at 50% 10%, #1a2332 0%, #020204 70%);
     overflow-x: hidden;
-    position: relative;
 }
 
-/* --- ANIMAÇÃO DE ONDA SUTIL NO RODAPÉ --- */
-body::before {
-    content: '';
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 200%;
-    height: 200px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%233d8aff' fill-opacity='0.03' d='M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,160C960,139,1056,149,1152,160C1248,171,1344,181,1392,186.7L1440,192L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
-    background-size: 50% 100%;
-    background-repeat: repeat-x;
-    z-index: -1;
-    animation: waveMove 20s linear infinite;
-}
-
-@keyframes waveMove {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-}
-
-/* --- ESTRUTURA E LAYOUT --- */
 .container {
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    z-index: 1;
+    z-index: 10; 
 }
 
+/* =========================================
+   3. HEADER & LOGO
+   ========================================= */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 50px;
+    margin-bottom: 60px;
+    padding: 0 10px;
     animation: fadeDown 0.8s ease-out forwards;
+    
+    /* Fix de Z-Index para o Menu Dropdown */
+    position: relative;
+    z-index: 50;
 }
 
 @keyframes fadeDown {
@@ -68,71 +61,126 @@ body::before {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* LOGO */
+/* --- LOGO BOX --- */
 .logo-box {
-    position: absolute;
-    nav-down: 20px;
-    left: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px; 
 }
 
 .logo-box img {
-    height: 60px;
+    height: 40px;
     width: auto;
 }
 
-/*  NAV (HREF À DIREITA)  */
+/* --- STATUS BEACON (Bolinha Animada) --- */
+.status-beacon {
+    width: 10px;
+    height: 10px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 5px var(--glow-blue);
+    animation: pulse-beacon 2s ease-in-out infinite;
+}
+
+.status-beacon::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--accent-blue);
+    animation: wave-beacon 2s ease-out infinite;
+    opacity: 0;
+}
+
+@keyframes pulse-beacon {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.2); box-shadow: 0 0 15px var(--accent-blue); background-color: #5eb1ff; }
+}
+
+@keyframes wave-beacon {
+    0% { width: 100%; height: 100%; opacity: 0.8; }
+    100% { width: 300%; height: 300%; opacity: 0; }
+}
+
+/* =========================================
+   4. NAVEGAÇÃO (HOLOGRAPHIC STYLE)
+   ========================================= */
 nav {
     margin-left: auto;
     display: flex;
-    gap: 20px;
+    gap: 15px;
+    align-items: center;
 }
 
 nav a {
+    position: relative;
     color: var(--text-dim);
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
-    letter-spacing: 1px;
-    position: relative;
-    padding: 8px 0;
-    display: inline-block;
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    letter-spacing: 0.5px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    background: transparent;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    overflow: hidden;
 }
 
-/* Linha decorativa */
+/* Glow Background */
+nav a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(45, 121, 243, 0.15) 0%, transparent 70%);
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.4s ease;
+    z-index: -1;
+}
+
+/* Bottom Line */
 nav a::after {
     content: '';
     position: absolute;
     bottom: 0;
-    left: 50%;
-    width: 0;
+    left: 0;
+    width: 100%;
     height: 2px;
-    background: linear-gradient(90deg, var(--accent-blue), var(--bright-cyan));
-    box-shadow: 0 0 10px var(--glow-blue);
-    transition: all 0.4s ease;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    transform: translateX(-100%);
+    opacity: 0;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), opacity 0.3s;
 }
 
-/* Hover */
+/* Hover States */
 nav a:hover {
     color: #fff;
-    transform: translateY(-3px);
-    text-shadow: 0 0 8px var(--glow-blue);
+    transform: translateY(-2px);
+    text-shadow: 0 0 10px rgba(45, 121, 243, 0.6);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.02);
 }
 
-nav a:hover::after {
-    width: 100%;
-    left: 0;
-}
+nav a:hover::before { opacity: 1; transform: scale(1); }
+nav a:hover::after { transform: translateX(0); opacity: 1; box-shadow: 0 0 15px var(--accent-blue); }
 
-/* Click */
 nav a:active {
-    transform: translateY(-1px) scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: inset 0 0 0 1px rgba(45, 121, 243, 0.3);
 }
 
-/* ===== DROPDOWN NAV ===== */
-.nav-dropdown {
-    position: relative;
-}
+/* --- DROPDOWN MENU --- */
+.nav-dropdown { position: relative; }
 
 .nav-trigger {
     display: flex;
@@ -143,209 +191,353 @@ nav a:active {
 
 .dropdown-menu {
     position: absolute;
-    top: 120%;
+    top: 150%;
     right: 0;
     min-width: 180px;
-    background: rgba(10, 15, 28, 0.95);
-    backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    border-radius: 14px;
+    background: #1a1d26; 
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     padding: 10px;
     display: none;
     flex-direction: column;
-    gap: 6px;
-    z-index: 1000;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
 
-.dropdown-menu.open {
-    display: flex;
-}
+.dropdown-menu.open { display: flex; }
 
 .dropdown-menu a {
+    /* Reset styles for dropdown items */
     padding: 10px 14px;
-    border-radius: 10px;
-    font-size: 14px;
-    transition: 0.25s ease;
+    border-radius: 8px;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: 0.2s;
+    background: transparent;
+    box-shadow: none;
+    transform: none;
 }
+
+.dropdown-menu a::after, 
+.dropdown-menu a::before { display: none; }
 
 .dropdown-menu a:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    transform: translateX(5px);
 }
 
+/* =========================================
+   5. HERO SECTION
+   ========================================= */
+.hero-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 80px;
+    position: relative;
+}
 
+.ambient-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 120%;
+    background: radial-gradient(circle, rgba(45, 121, 243, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
+}
 
 /* --- HERO CARD --- */
 .hero-card {
-    background: linear-gradient(135deg, rgba(13, 17, 23, 0.6), rgba(10, 20, 40, 0.6));
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid var(--border-light);
-    border-radius: 40px;
-    padding: 100px 40px;
-    text-align: center;
     position: relative;
-    margin-bottom: 60px;
-    overflow: visible;
-    animation: heroPowerUp 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    z-index: 1;
+    width: 100%;
+    max-width: 1200px;
+    padding: 90px 40px;
+    text-align: center;
+    border-radius: 60px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.2), 
+        inset 0 0 60px rgba(45, 121, 243, 0.15), 
+        0 0 50px rgba(45, 121, 243, 0.2);
+    overflow: hidden;
 }
 
-@keyframes heroPowerUp {
-    0% { opacity: 0; transform: translateY(40px) scale(0.95); }
-    100% { opacity: 1; transform: translateY(0) scale(1); }
+.hero-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(100, 200, 255, 0.8), transparent);
+    box-shadow: 0 0 15px rgba(100, 200, 255, 0.8);
+    z-index: 3;
 }
 
-/* --- SISTEMA DE ONDAS --- */
+/* --- TYPOGRAPHY --- */
+.hero-card h1 {
+    font-size: 5rem;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 25px;
+    color: white;
+    letter-spacing: -2px;
+    position: relative;
+    z-index: 2;
+}
+
+.wave-text-anim {
+    display: block;
+    background: linear-gradient(90deg, var(--accent-blue) 0%, #ffffff 50%, var(--accent-blue) 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    margin-bottom: 5px;
+    animation: textFlow 3s linear infinite;
+}
+
+@keyframes textFlow {
+    to { background-position: 200% center; }
+}
+
+.hero-card p {
+    color: #aeb9cc;
+    font-size: 1.1rem;
+    max-width: 600px;
+    margin: 0 auto 40px auto;
+    line-height: 1.6;
+    position: relative;
+    z-index: 2;
+}
+
+/* --- WATER WAVES --- */
 .water-container {
     position: absolute;
     top: 50%;
     left: 50%;
+    transform: translate(-50%, -50%);
     width: 100%;
     height: 100%;
-    transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
 }
 
 .drop-wave {
     position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
-    border: 1.5px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px) saturate(1.8);
-    -webkit-backdrop-filter: blur(10px) saturate(1.8);
-    box-shadow: inset 0 0 30px rgba(61, 138, 255, 0.15),
-                0 0 20px rgba(61, 138, 255, 0.05);
+    border: 1px solid rgba(45, 121, 243, 0.3);
+    box-shadow: 0 0 15px rgba(45, 121, 243, 0.2);
     opacity: 0;
-    animation: water-ripple 10s cubic-bezier(0.100, 0.72, 0.48, 0.5) infinite;
+    animation: rippleEffect 6s infinite;
 }
 
-.drop-wave:nth-child(2) { animation-delay: 2.5s; }
-.drop-wave:nth-child(3) { animation-delay: 5s; }
+.drop-wave:nth-child(2) { animation-delay: 2s; }
+.drop-wave:nth-child(3) { animation-delay: 4s; }
 
-@keyframes water-ripple {
-    0% { 
-        width: 0; 
-        height: 0; 
-        opacity: 0; 
-        transform: scale(0);
-        backdrop-filter: blur(0px);
-    }
-    15% { opacity: 0.7; }
-    100% { 
-        width: 2200px; 
-        height: 2200px; 
-        opacity: 0; 
-        transform: scale(1.2);
-        backdrop-filter: blur(0px);
-    }
+@keyframes rippleEffect {
+    0% { width: 0; height: 0; opacity: 0.8; }
+    100% { width: 900px; height: 900px; opacity: 0; }
 }
 
-/* --- TIPOGRAFIA --- */
-.hero-card h1 {
-    font-size: 64px;
-    font-weight: 300;
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 2;
-    letter-spacing: -1px;
-}
-
-.hero-card h1 b {
-    font-weight: 800;
-    display: block;
-    color: transparent;
-    background: linear-gradient(90deg, var(--accent-blue) 0%, var(--bright-cyan) 50%, var(--accent-blue) 100%);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    animation: blueWaveFlow 4s linear infinite;
-    letter-spacing: -2px;
-}
-
-@keyframes blueWaveFlow { 
-    to { background-position: 200% center; } 
-}
-
-.hero-card p {
-    color: var(--text-dim);
-    font-size: 18px;
-    margin-bottom: 30px;
-    position: relative;
-    z-index: 2;
-}
-
-/* --- BOTÕES --- */
-.btn-main {
-    background: #fff;
-    color: #000;
-    padding: 18px 50px;
-    border-radius: 50px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border: none;
-    cursor: pointer;
-    transition: 0.4s;
-    position: relative;
-    z-index: 2;
-}
-
-.btn-main:hover {
-    transform: scale(1.05) translateY(-3px);
-    box-shadow: 0 15px 35px var(--glow-blue);
-}
-
-/* --- DASHBOARD --- */
+/* =========================================
+   6. DASHBOARD & CARDS
+   ========================================= */
 .dashboard-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 30px;
-    margin-top: 40px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
 }
 
 .card {
-    background: var(--glass-bg);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid var(--border-light);
-    border-radius: 30px;
-    padding: 35px;
-    transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    z-index: 2;
+    background: #0b0d12;
+    border: 1px solid #1f232d;
+    border-radius: 20px;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s, border-color 0.3s;
 }
 
 .card:hover {
-    transform: translateY(-10px);
-    border-color: var(--accent-blue);
-    background: rgba(61, 138, 255, 0.08);
+    transform: translateY(-5px);
+    border-color: #33394b;
+    background: #11141c;
 }
 
-.card-label {
-    font-size: 11px;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-dim);
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #1f232d;
 }
 
-.card-value {
-    font-size: 38px;
-    font-weight: 800;
+.card-title { font-size: 0.9rem; font-weight: 600; color: #ececec; }
+.card-icon { font-size: 1.2rem; color: #555; }
+.card-value { font-size: 2rem; font-weight: 700; color: #fff; margin: 10px 0; }
+.card-sub { color: var(--text-dim); font-size: 0.85rem; }
+
+/* =========================================
+   7. BOTÕES (Buttons)
+   ========================================= */
+
+/* --- Opção A: Botão Hero Standard --- */
+.btn-hero {
+    position: relative;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(45, 121, 243, 0.3);
+    color: #ffffff;
+    padding: 12px 32px;
+    border-radius: 9999px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.btn-hero:hover {
+    background: linear-gradient(180deg, rgba(45, 121, 243, 0.15) 0%, rgba(45, 121, 243, 0.05) 100%);
+    border-color: rgba(45, 121, 243, 0.8);
+    box-shadow: 0 0 15px rgba(45, 121, 243, 0.3), 0 0 30px rgba(45, 121, 243, 0.1);
+    transform: translateY(-1px);
     color: #fff;
-    display: block;
-    margin-top: 10px;
-    letter-spacing: -1px;
 }
 
-/* --- RESPONSIVIDADE --- */
+.btn-hero:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: none;
+}
+
+/* --- Opção B: Botão Cyber Glass (Novo) --- */
+.btn-cyber-glass {
+    position: relative;
+    padding: 14px 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(45, 121, 243, 0.5);
+    border-radius: 50px;
+    color: #fff;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    overflow: hidden;
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 0 20px rgba(45, 121, 243, 0.2), 
+        0 5px 15px rgba(0,0,0,0.2);
+        
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-text {
+    position: relative;
+    z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-shimmer {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.7s ease;
+    z-index: 1;
+}
+
+.btn-cyber-glass:hover {
+    background: rgba(45, 121, 243, 0.15);
+    border-color: var(--accent-blue);
+    box-shadow: 
+        inset 0 0 30px rgba(45, 121, 243, 0.4),
+        0 0 25px rgba(45, 121, 243, 0.4);
+    transform: translateY(-3px);
+}
+
+.btn-cyber-glass:hover .btn-text { text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); }
+.btn-cyber-glass:hover .btn-shimmer { left: 100%; }
+
+.btn-cyber-glass:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: inset 0 0 10px rgba(45, 121, 243, 0.6);
+}
+
+/* =========================================
+   8. MEDIA QUERIES (Responsividade)
+   ========================================= */
 @media (max-width: 900px) {
     .dashboard-grid { grid-template-columns: 1fr; }
-    .hero-card h1 { font-size: 42px; }
-    .hero-card { padding: 60px 20px; }
+    .hero-card h1 { font-size: 3rem; }
+    .hero-card { padding: 50px 20px; }
     .header { flex-direction: column; gap: 20px; }
-    .logo-box { position: static; }
     nav { justify-content: center; }
+}
+/* =========================================
+   1. VARIÁVEIS GLOBAIS
+   ========================================= */
+:root { 
+    --bg-deep: #020204;
+    --card-bg: #0d1117;
+    --accent-blue: #2d79f3;
+    --bright-cyan: #4facfe;
+    --glass-bg: rgba(255, 255, 255, 0.03);
+    --border-light: rgba(255, 255, 255, 0.1);
+    --text-main: #ffffff;
+    --text-dim: #8b9bb4;
+    --glow-blue: rgba(45, 121, 243, 0.4);
+}
+
+/* =========================================
+   2. RESET & BASE (FONTE ATUALIZADA AQUI)
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    /* MUDANÇA: Usando a fonte OUTFIT agora */
+    font-family: 'Outfit', sans-serif; 
+    font-weight: 400;
+    min-height: 100vh;
+    background: radial-gradient(circle at 50% 10%, #1a2332 0%, #020204 70%);
+    overflow-x: hidden;
+}
+
+/* Garante que botões e inputs herdem a fonte bonita */
+input, button, select, textarea {
+    font-family: 'Outfit', sans-serif;
 }

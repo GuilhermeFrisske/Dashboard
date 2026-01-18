@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Samsung Customer Connect - Premium Dashboard</title>
+    <title>Samsung Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="container">
     <header class="header">
         <div class="logo-box">
-            <img src="logo.png" alt="Samsung Logo">
-        </div>
+    <img src="/img/logo.png" alt="Samsung" style="display: block; height: 40px;">
+    
+    <span class="status-beacon"></span>
+</div>
         <nav>
-            <a href="#">Home</a>
             <a href="#">Analytics</a>
 
-            <!-- Menu com seta -->
             <div class="nav-dropdown">
                 <a href="#" class="nav-trigger">System ▾</a>
                 <div class="dropdown-menu">
@@ -28,86 +28,88 @@
                     <a href="#">Segurança</a>
                 </div>
             </div>
-
-            <a href="#" class="user-badge">Login</a>
         </nav>
     </header>
 
     <main>
-        <section class="hero-card">
-            <h1>Samsung <b>Customer Connect</b></h1>
-            <p>Samsung Customer Connect connects Samsung with its customers, enabling transparent communication and valuable feedback to improve products, services, and support, while strengthening trust and customer satisfaction.</p>
-            <button class="btn-main">Iniciar Conexão</button>
+        <section class="hero-section">
+            <div class="ambient-glow"></div>
+            
+            <div class="hero-card">
+                <div class="water-container">
+                    <div class="drop-wave"></div>
+                    <div class="drop-wave"></div>
+                    <div class="drop-wave"></div>
+                </div>
+
+                <h1>
+                    <span class="wave-text-anim">Samsung</span>
+                     Logistic Customer Connect
+                </h1>
+                
+                <p>Samsung Customer Connect connects Samsung with its customers</p>
+                
+                <button class="btn-cyber-glass">
+                    <span class="btn-text">Iniciar Conexão</span>
+                    <span class="btn-shimmer"></span>
+                </button>
+                
+            </div>
         </section>
 
         <div class="dashboard-grid">
             <div class="card">
-                <div class="card-label">QUALIDADE</div>
-                <div class="card-value">0%</div>
-                <div class="card-sub"><span>↑</span> 0% este mês</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label">LOGÍSTICA</div>
-                <div class="card-value">0%</div>
-                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label">LOGÍSTICA</div>
-                <div class="card-value">0%</div>
-                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label"></div>
-                <div class="card-value">0%</div>
-                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
-            </div>
-
-            <div class="profile">
-                <div class="card-label"></div>
-                <div class="card-value">0%</div>
-                <div class="card-sub" style="color:var(--text-dim)">Estável</div>
-            </div>
-
-            <div class="card">
-                <div class="card-label"></div>
-                <div style="margin-top:20px">
-                    <div class="team-item"><span>Digital</span> <strong>0%</strong></div>
-                    <div class="team-item"><span>Retenção</span> <strong>0%</strong></div>
+                <div class="card-header">
+                    <span class="card-title">QUALIDADE</span>
+                    <span class="card-icon">⌂</span>
                 </div>
+                <div class="card-value">0%</div>
+                <div class="card-sub">
+                    <span>↑</span> 0% este mês
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">LOGÍSTICA</span>
+                    <span class="card-icon">⌂</span>
+                </div>
+                <div class="card-value">0%</div>
+                <div class="card-sub">Estável</div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">OPERAÇÃO</span>
+                    <span class="card-icon">⌂</span>
+                </div>
+                <div class="card-value">0%</div>
+                <div class="card-sub">Estável</div>
             </div>
         </div>
     </main>
 </div>
 
-<div class="glass-panel">
-    <div class="water-container">
-        <div class="drop-wave"></div>
-        <div class="drop-wave"></div>
-        <div class="drop-wave"></div>
-    </div>
-</div>
-
 <script>
-document.addEventListener("DOMContentLoaded", () => {
-    const trigger = document.querySelector(".nav-trigger");
-    const dropdown = document.querySelector(".dropdown-menu");
+    // Script simples para o menu dropdown
+    document.addEventListener("DOMContentLoaded", () => {
+        const trigger = document.querySelector(".nav-trigger");
+        const dropdown = document.querySelector(".dropdown-menu");
+        const dropdownContainer = document.querySelector(".nav-dropdown");
 
-    trigger.addEventListener("click", (e) => {
-        e.preventDefault();
-        dropdown.classList.toggle("open");
-        trigger.classList.toggle("active");
-    });
+        trigger.addEventListener("click", (e) => {
+            e.preventDefault();
+            dropdown.classList.toggle("open");
+            trigger.classList.toggle("active");
+        });
 
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest(".nav-dropdown")) {
-            dropdown.classList.remove("open");
-            trigger.classList.remove("active");
-        }
+        document.addEventListener("click", (e) => {
+            if (!dropdownContainer.contains(e.target)) {
+                dropdown.classList.remove("open");
+                trigger.classList.remove("active");
+            }
+        });
     });
-});
 </script>
 
 </body>
