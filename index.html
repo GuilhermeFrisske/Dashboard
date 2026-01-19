@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,20 +12,19 @@
 <div class="container">
     <header class="header">
         <div class="logo-box">
-    <img src="/img/logo.png" alt="Samsung" style="display: block; height: 40px;">
-    
-    <span class="status-beacon"></span>
-</div>
+            <img src="/img/logo.png" alt="Samsung" style="display: block; height: 40px;">
+            <span class="status-beacon"></span>
+        </div>
         <nav>
             <a href="#">Analytics</a>
 
             <div class="nav-dropdown">
                 <a href="#" class="nav-trigger">System ▾</a>
                 <div class="dropdown-menu">
-                    <a href="#">Configurações</a>
-                    <a href="#">Usuários</a>
-                    <a href="#">Relatórios</a>
-                    <a href="#">Segurança</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Users</a>
+                    <a href="#">Reports</a>
+                    <a href="#">Security</a>
                 </div>
             </div>
         </nav>
@@ -47,10 +46,10 @@
                      Logistic Customer Connect
                 </h1>
                 
-                <p>Samsung Customer Connect connects Samsung with its customers</p>
+                <p>Samsung Customer Connect is a real-time, unified dashboard that centralizes supply chain visibility by tracking logistics, performance metrics, and operational analytics.</p>
                 
                 <button class="btn-cyber-glass">
-                    <span class="btn-text">Iniciar Conexão</span>
+                    <span class="btn-text">Start Connection</span>
                     <span class="btn-shimmer"></span>
                 </button>
                 
@@ -60,38 +59,38 @@
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">QUALIDADE</span>
+                    <span class="card-title">QUALITY</span>
                     <span class="card-icon">⌂</span>
                 </div>
                 <div class="card-value">0%</div>
                 <div class="card-sub">
-                    <span>↑</span> 0% este mês
+                    <span>↑</span> 0% this month
                 </div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">LOGÍSTICA</span>
+                    <span class="card-title">LOGISTICS</span>
                     <span class="card-icon">⌂</span>
                 </div>
                 <div class="card-value">0%</div>
-                <div class="card-sub">Estável</div>
+                <div class="card-sub">Stable</div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">OPERAÇÃO</span>
+                    <span class="card-title">OPERATIONS</span>
                     <span class="card-icon">⌂</span>
                 </div>
                 <div class="card-value">0%</div>
-                <div class="card-sub">Estável</div>
+                <div class="card-sub">Stable</div>
             </div>
         </div>
     </main>
 </div>
 
 <script>
-    // Script simples para o menu dropdown
+    // Simple script for the dropdown menu
     document.addEventListener("DOMContentLoaded", () => {
         const trigger = document.querySelector(".nav-trigger");
         const dropdown = document.querySelector(".dropdown-menu");

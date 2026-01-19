@@ -1,0 +1,258 @@
+/* =========================================
+   1. VARIÁVEIS (TEMA DEEP SPACE BLUE)
+   ========================================= */
+:root { 
+    --bg-deep: #020204;
+    --accent-blue: #2d79f3;      /* Azul Samsung */
+    --bright-cyan: #4facfe;      /* Ciano Brilhante */
+    --text-main: #ffffff;
+    --text-dim: #a0aec0;         /* Cinza claro legível */
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --glow-blue: rgba(45, 121, 243, 0.5);
+}
+
+/* =========================================
+   2. RESET & BASE
+   ========================================= */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    background-color: var(--bg-deep);
+    color: var(--text-main);
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    font-weight: 400;
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    
+    /* Fundo Azul Espacial (Não é preto puro) */
+    background: radial-gradient(circle at 50% 0%, #1a2332 0%, #020204 80%);
+}
+
+/* Remove a cor roxa padrão dos links */
+a { text-decoration: none; color: inherit; }
+
+/* =========================================
+   3. HEADER & MENU (CORRIGIDO)
+   ========================================= */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 60px;
+    padding: 0 10px;
+    position: relative;
+    z-index: 1000; /* Menu sempre no topo */
+}
+
+/* =========================================
+   4. LOGO & ELEMENTOS VISUAIS
+   ========================================= */
+.logo-box { display: flex; align-items: center; gap: 12px; }
+.justify-center { justify-content: center; }
+
+/* Bolinha Pulsante (Beacon) */
+.status-beacon {
+    width: 8px; height: 8px;
+    background-color: var(--accent-blue);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: 0 0 10px var(--accent-blue);
+}
+.status-beacon::after {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 1px solid var(--accent-blue);
+    animation: ping 2s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping {
+    75%, 100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+}
+
+/* =========================================
+   5. LOGIN LAYOUT
+   ========================================= */
+.login-body {
+    display: flex; justify-content: center; align-items: center;
+    min-height: 100vh; position: relative;
+}
+
+.login-wrapper {
+    position: relative; width: 100%; max-width: 420px; padding: 20px; z-index: 10;
+    animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0; transform: translateY(40px);
+}
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* Glow Azul atrás do cartão */
+.login-glow-bg {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 140%; height: 140%;
+    background: radial-gradient(circle, rgba(45, 121, 243, 0.15) 0%, transparent 60%);
+    filter: blur(80px); z-index: -1; pointer-events: none;
+}
+
+/* =========================================
+   6. CARTÃO DE VIDRO (BLUE GLASS)
+   ========================================= */
+.glass-panel {
+    /* Gradiente sutilmente azulado, não preto */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, rgba(10, 15, 30, 0.8) 100%);
+    
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    
+    border-radius: 24px;
+    padding: 48px 40px;
+    
+    /* Bordas com brilho azul ciano no topo */
+    border: 1px solid transparent;
+    border-top-color: rgba(79, 172, 254, 0.3);
+    border-left-color: rgba(79, 172, 254, 0.1);
+    border-bottom-color: rgba(0, 0, 0, 0.3);
+    
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8);
+    position: relative; overflow: hidden;
+}
+
+/* =========================================
+   7. TIPOGRAFIA & INPUTS
+   ========================================= */
+.login-header { text-align: center; margin-bottom: 40px; }
+.login-header h2 { color: #fff; font-size: 1.5rem; margin-top: 24px; margin-bottom: 8px; font-weight: 600; letter-spacing: -0.02em; }
+.login-header p { color: var(--text-dim); font-size: 0.9rem; font-weight: 400; }
+
+.input-group { margin-bottom: 20px; }
+.input-group label { display: block; color: var(--text-dim); font-size: 0.8rem; margin-bottom: 8px; margin-left: 2px; font-weight: 500; }
+
+.input-wrapper { position: relative; }
+
+.input-icon {
+    position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--text-dim); font-size: 0.9rem; transition: 0.3s; pointer-events: none;
+}
+
+.input-wrapper input {
+    width: 100%;
+    padding: 12px 16px 12px 42px;
+    background: var(--input-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: #fff; font-size: 0.95rem; font-family: inherit;
+    outline: none; transition: all 0.2s ease;
+}
+.input-wrapper input::placeholder { color: rgba(255, 255, 255, 0.2); }
+
+/* Focus State: Glow Azul */
+.input-wrapper input:focus {
+    background: rgba(45, 121, 243, 0.05); 
+    border-color: var(--accent-blue);
+    box-shadow: 0 0 0 4px rgba(45, 121, 243, 0.15);
+}
+.input-wrapper input:focus + .input-icon { color: var(--accent-blue); }
+
+/* =========================================
+   8. BOTÃO "CYBER GLASS" (Estilo Tech)
+   ========================================= */
+.btn-cyber-glass {
+    position: relative;
+    padding: 14px 36px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(45, 121, 243, 0.5);
+    border-radius: 50px;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    overflow: hidden;
+    
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 
+        inset 0 0 20px rgba(45, 121, 243, 0.2), 
+        0 5px 15px rgba(0,0,0,0.2);
+        
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.btn-text {
+    position: relative; z-index: 2;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    transition: all 0.3s ease;
+}
+
+.btn-shimmer {
+    position: absolute; top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transform: skewX(-20deg);
+    transition: left 0.7s ease;
+    z-index: 1;
+}
+
+.btn-cyber-glass:hover {
+    background: rgba(45, 121, 243, 0.15);
+    border-color: var(--accent-blue);
+    box-shadow: 
+        inset 0 0 30px rgba(45, 121, 243, 0.4),
+        0 0 25px rgba(45, 121, 243, 0.4);
+    transform: translateY(-3px);
+}
+
+.btn-cyber-glass:hover .btn-text { text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); }
+.btn-cyber-glass:hover .btn-shimmer { left: 100%; }
+
+.btn-cyber-glass:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow: inset 0 0 10px rgba(45, 121, 243, 0.6);
+}
+
+/* =========================================
+   9. FOOTER
+   ========================================= */
+.login-footer {
+    text-align: center; margin-top: 40px; 
+    color: rgba(255, 255, 255, 0.3); font-size: 0.75rem; 
+    border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 25px;
+    display: flex; flex-direction: column; align-items: center; gap: 12px;
+}
+.login-footer img { height: 20px; opacity: 0.5; filter: grayscale(100%); transition: 0.3s; }
+.login-footer img:hover { opacity: 1; filter: grayscale(0); }
+/* =========================================
+   9. FOOTER & LINK CORRECTIONS
+   ========================================= */
+.login-footer { text-align: center; margin-top: 32px; color: rgba(255, 255, 255, 0.2); font-size: 0.75rem; letter-spacing: 0.05em; }
+
+.recovery-footer { text-align: center; margin-top: 24px; border-top: 1px solid rgba(255, 255, 255, 0.05); padding-top: 20px;}
+
+/* Link de Voltar (Branco/Cinza, nunca roxo) */
+.back-link {
+    color: var(--text-dim); 
+    font-size: 0.9rem; font-weight: 500;
+    display: inline-flex; align-items: center; gap: 8px; transition: 0.2s;
+}
+.back-link:hover { color: #fff; gap: 12px; text-shadow: 0 0 10px var(--glow-blue); }
+.back-link i { transition: transform 0.2s; }
+.back-link:hover i { transform: translateX(-3px); color: var(--bright-cyan); }
+
+/* Utilitário para checkboxes */
+.form-actions { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; font-size: 0.85rem; color: var(--text-dim); }
+.custom-checkbox { display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none; transition: 0.2s; }
+.custom-checkbox:hover { color: #fff; }
+.custom-checkbox input { display: none; }
+.checkmark { height: 16px; width: 16px; background-color: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; position: relative; transition: 0.2s; }
+.custom-checkbox input:checked ~ .checkmark { background-color: var(--accent-blue); border-color: var(--accent-blue); }
+.custom-checkbox input:checked ~ .checkmark::after { content: ''; position: absolute; left: 4px; top: 1px; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+.forgot-link { color: var(--text-dim); transition: 0.2s; }
+.forgot-link:hover { color: var(--bright-cyan); text-decoration: underline; text-underline-offset: 4px; }
+
+/* Correção para botões com largura total */
+.full-width {
+    width: 100%;
+}

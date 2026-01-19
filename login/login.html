@@ -3,26 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Samsung Connect</title>
+    <title>Login - Samsung Logistics</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body class="login-body">
 
     <div class="login-wrapper">
+        
+        <div class="bg-orb orb-1"></div>
+        <div class="bg-orb orb-2"></div>
         <div class="login-glow-bg"></div>
 
-        <div class="login-card glass-panel">
+        <div class="glass-panel">
             
             <div class="login-header">
                 <div class="logo-box justify-center">
                     <img src="/img/logo.png" alt="Samsung" style="height: 40px;">
                     <span class="status-beacon"></span>
                 </div>
-                <h2>Welcome back</h2>
+                <h2>Welcome</h2>
                 <p>Access the global logistics dashboard</p>
             </div>
 
@@ -40,7 +42,10 @@
                     <label>Password</label>
                     <div class="input-wrapper">
                         <i class="fas fa-lock input-icon"></i>
-                        <input type="password" placeholder="••••••••" required>
+                        <input type="password" id="passwordInput" class="input-password" placeholder="••••••••" required>
+                        <div class="toggle-wrapper" onclick="togglePassword()">
+                            <i class="fas fa-eye toggle-icon"></i>
+                        </div>
                     </div>
                 </div>
 
@@ -50,7 +55,7 @@
                         <span class="checkmark"></span>
                         Remember me
                     </label>
-                    <a href="#" class="forgot-link">Recover password</a>
+                    <a href="recover.html" class="forgot-link">Recover password</a>
                 </div>
 
                 <button type="submit" class="btn-cyber-glass full-width">
@@ -61,10 +66,29 @@
             </form>
 
             <div class="login-footer">
-                <p>© 2024 Samsung Logistics. Secured by Knox.</p>
+                <p>© 2026 Samsung SDS.</p>
+                <img src="/img/knox.png" alt="Secured by Knox">
             </div>
         </div>
-    </div>
+
+    </div> <script>
+        function togglePassword() {
+            const input = document.getElementById('passwordInput');
+            const icon = document.querySelector('.toggle-icon');
+            const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
+            input.setAttribute('type', type);
+
+            if (type === 'text') {
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+                icon.style.color = "var(--accent-blue)";
+            } else {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+                icon.style.color = "";
+            }
+        }
+    </script>
 
 </body>
 </html>
