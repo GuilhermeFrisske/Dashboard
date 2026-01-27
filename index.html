@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Samsung Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
 
@@ -15,16 +16,35 @@
             <img src="/img/logo.png" alt="Samsung" style="display: block; height: 40px;">
             <span class="status-beacon"></span>
         </div>
+        
         <nav>
-            <a href="#">Analytics</a>
+            <div class="nav-links">
+                <a href="#">Analytics</a>
+                <div class="nav-dropdown">
+                    <a href="#" class="nav-trigger">System ▾</a>
+                    <div class="dropdown-menu">
+                        <a href="#">Settings</a>
+                        <a href="#">Users</a>
+                        <a href="#">Reports</a>
+                        <a href="#">Security</a>
+                    </div>
+                </div>
+            </div>
 
-            <div class="nav-dropdown">
-                <a href="#" class="nav-trigger">System ▾</a>
-                <div class="dropdown-menu">
-                    <a href="#">Settings</a>
-                    <a href="#">Users</a>
-                    <a href="#">Reports</a>
-                    <a href="#">Security</a>
+            <div class="user-profile" id="userProfile">
+                <div class="profile-info">
+                    <span class="user-name"></span>
+                    <span class="user-role"></span>
+                </div>
+                <div class="profile-avatar">
+                    <i class="fas fa-user-circle"></i>
+                    <div class="avatar-glow"></div>
+                    
+                    <div class="profile-menu" id="profileMenu">
+                        <a href="login/login.html" class="logout-item">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
+                    </div>
                 </div>
             </div>
         </nav>
@@ -33,83 +53,159 @@
     <main>
         <section class="hero-section">
             <div class="ambient-glow"></div>
-            
             <div class="hero-card">
                 <div class="water-container">
                     <div class="drop-wave"></div>
                     <div class="drop-wave"></div>
                     <div class="drop-wave"></div>
                 </div>
-
                 <h1>
                     <span class="wave-text-anim">Samsung</span>
                      Logistic Customer Connect
                 </h1>
-                
                 <p>Samsung Customer Connect is a real-time, unified dashboard that centralizes supply chain visibility by tracking logistics, performance metrics, and operational analytics.</p>
-                
                 <button class="btn-cyber-glass">
                     <span class="btn-text">Start Connection</span>
                     <span class="btn-shimmer"></span>
                 </button>
-                
             </div>
         </section>
 
         <div class="dashboard-grid">
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">QUALITY</span>
-                    <span class="card-icon">⌂</span>
+                    <span class="card-title">QUALITY CONTROL</span>
+                    <i class="fas fa-shield-halved card-icon"></i>
                 </div>
-                <div class="card-value">0%</div>
-                <div class="card-sub">
-                    <span>↑</span> 0% this month
-                </div>
+                <div class="card-value">98.4%</div>
+                <div class="card-sub"><span>↑ 0.5%</span> vs last month</div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">LOGISTICS</span>
-                    <span class="card-icon">⌂</span>
+                    <span class="card-title">LOGISTICS EFFICIENCY</span>
+                    <i class="fas fa-truck-fast card-icon"></i>
                 </div>
-                <div class="card-value">0%</div>
-                <div class="card-sub">Stable</div>
+                <div class="card-value">92.1%</div>
+                <div class="card-sub"><span>↑ 1.2%</span> stable flow</div>
             </div>
 
             <div class="card">
                 <div class="card-header">
-                    <span class="card-title">OPERATIONS</span>
-                    <span class="card-icon">⌂</span>
+                    <span class="card-title">ACTIVE OPERATIONS</span>
+                    <i class="fas fa-microchip card-icon"></i>
                 </div>
-                <div class="card-value">0%</div>
-                <div class="card-sub">Stable</div>
+                <div class="card-value">24/7</div>
+                <div class="card-sub"><span>System Online</span></div>
             </div>
         </div>
+
+        <section class="charts-area">
+            <div class="card chart-card">
+                <div class="card-header">
+                    <span class="card-title">Operational Flow Analysis</span>
+                    <span class="card-sub">Real-time data Sync</span>
+                </div>
+                <div class="chart-wrapper">
+                    <canvas id="logisticsChart"></canvas>
+                </div>
+            </div>
+        </section>
     </main>
-</div>
 
-<script>
-    // Simple script for the dropdown menu
-    document.addEventListener("DOMContentLoaded", () => {
-        const trigger = document.querySelector(".nav-trigger");
-        const dropdown = document.querySelector(".dropdown-menu");
-        const dropdownContainer = document.querySelector(".nav-dropdown");
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // Lógica do Dropdown do Menu "System"
+            const trigger = document.querySelector(".nav-trigger");
+            const dropdown = document.querySelector(".dropdown-menu");
+            const dropdownContainer = document.querySelector(".nav-dropdown");
 
-        trigger.addEventListener("click", (e) => {
-            e.preventDefault();
-            dropdown.classList.toggle("open");
-            trigger.classList.toggle("active");
-        });
-
-        document.addEventListener("click", (e) => {
-            if (!dropdownContainer.contains(e.target)) {
-                dropdown.classList.remove("open");
-                trigger.classList.remove("active");
+            if(trigger) {
+                trigger.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    dropdown.classList.toggle("open");
+                    trigger.classList.toggle("active");
+                });
             }
-        });
-    });
-</script>
 
+            // Lógica do Menu de Perfil e Logout
+            const userProfile = document.getElementById('userProfile');
+            const profileMenu = document.getElementById('profileMenu');
+
+            if (userProfile && profileMenu) {
+                userProfile.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    profileMenu.classList.toggle('show');
+                });
+
+                document.addEventListener('click', () => {
+                    profileMenu.classList.remove('show');
+                });
+            }
+
+            // Configuração do Gráfico
+            let delayed;
+            const ctx = document.getElementById('logisticsChart').getContext('2d');
+            const chartGradient = ctx.createLinearGradient(0, 0, 0, 300);
+            chartGradient.addColorStop(0, 'rgba(45, 121, 243, 0.4)');
+            chartGradient.addColorStop(1, 'rgba(45, 121, 243, 0)');
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['00:00', '04:00', '08:00', '12:00', '16:00', '20:00', '23:59'],
+                    datasets: [{
+                        label: 'Efficiency %',
+                        data: [85, 82, 90, 95, 92, 98, 94],
+                        borderColor: '#2d79f3',
+                        backgroundColor: chartGradient,
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#4facfe',
+                        pointRadius: 4,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    animation: {
+                        onComplete: () => { delayed = true; },
+                        delay: (context) => {
+                            let delay = 0;
+                            if (context.type === 'data' && context.mode === 'default' && !delayed) {
+                                delay = context.dataIndex * 200 + context.datasetIndex * 100;
+                            }
+                            return delay;
+                        },
+                    },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#1a1d26',
+                            titleFont: { family: 'Outfit', size: 14 },
+                            bodyFont: { family: 'Outfit', size: 13 },
+                            padding: 12,
+                            cornerRadius: 10,
+                            displayColors: false
+                        }
+                    },
+                    scales: {
+                        y: { 
+                            beginAtZero: false, 
+                            grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                            ticks: { color: '#8b9bb4', font: { family: 'Outfit' } }
+                        },
+                        x: { 
+                            grid: { display: false },
+                            ticks: { color: '#8b9bb4', font: { family: 'Outfit' } }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>

@@ -391,6 +391,37 @@ nav a:active {
 .card-value { font-size: 2rem; font-weight: 700; color: #fff; margin: 10px 0; }
 .card-sub { color: var(--text-dim); font-size: 0.85rem; }
 
+.card {
+    /* Fundo com ligeira transparência e blur */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    
+    /* Borda mais fina e elegante */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px; /* Cantos mais arredondados */
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Brilho no topo ao passar o rato */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at top right, rgba(45, 121, 243, 0.1), transparent);
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
 /* =========================================
    7. BOTÕES (Buttons)
    ========================================= */
@@ -540,4 +571,299 @@ body {
 /* Garante que botões e inputs herdem a fonte bonita */
 input, button, select, textarea {
     font-family: 'Outfit', sans-serif;
+}
+/* =========================================
+   6. DASHBOARD & CARDS (DESIGN MELHORADO)
+   ========================================= */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-top: 40px;
+}
+
+.card {
+    /* Efeito Glassmorphism: Gradiente sutil e Blur */
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.01) 100%);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    
+    /* Borda fina e elegante */
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    z-index: 1;
+}
+
+/* Brilho radial que aparece no hover no canto superior direito */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: radial-gradient(circle at top right, rgba(45, 121, 243, 0.15), transparent 70%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: -1;
+}
+
+/* Linha de brilho no topo do cartão */
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 80%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+    opacity: 0.3;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    border-color: rgba(45, 121, 243, 0.4);
+    background: rgba(255, 255, 255, 0.07);
+    box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(45, 121, 243, 0.1);
+}
+
+.card:hover::before {
+    opacity: 1;
+}
+
+/* Tipografia interna dos cartões */
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.card-icon {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover .card-icon {
+    color: var(--accent-blue);
+    transform: scale(1.2) rotate(5deg);
+}
+
+.card-value {
+    font-family: 'Outfit', sans-serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 10px 0;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+}
+
+.card-sub {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Indicador de crescimento (Verde/Ciano tech) */
+.card-sub span {
+    color: var(--bright-cyan);
+    font-weight: 600;
+}
+
+/* =========================================
+   7. AJUSTE DE FONTES GLOBAIS
+   ========================================= */
+body, input, button, select, textarea {
+    font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+/* =========================================
+   ESTILO DO GRÁFICO (EM BAIXO)
+   ========================================= */
+.charts-area {
+    margin-top: 30px;
+    margin-bottom: 50px;
+}
+
+.chart-card {
+    width: 100%;
+    min-height: 400px;
+    padding: 35px !important;
+}
+
+.chart-wrapper {
+    position: relative;
+    height: 300px;
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Garante que o canvas ocupa o espaço todo */
+#logisticsChart {
+    width: 100% !important;
+    height: 100% !important;
+}
+.charts-area {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: chartFadeIn 1s ease-out forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes chartFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+/* =========================================
+   PERFIL DO UTILIZADOR (HEADER)
+   ========================================= */
+nav {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding-left: 20px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+}
+
+.user-name {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.user-role {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.profile-avatar {
+    position: relative;
+    font-size: 2.2rem;
+    color: var(--accent-blue);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.avatar-glow {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: var(--accent-blue);
+    filter: blur(15px);
+    opacity: 0.2;
+    z-index: -1;
+    transition: opacity 0.3s ease;
+}
+
+.profile-avatar:hover {
+    transform: scale(1.1);
+    color: #fff;
+}
+
+.profile-avatar:hover .avatar-glow {
+    opacity: 0.5;
+}
+
+/* Ajuste Responsivo para Mobile */
+@media (max-width: 768px) {
+    .profile-info { display: none; }
+    .user-profile { border-left: none; padding-left: 10px; }
+}
+/* Feedback visual ao clicar */
+.profile-avatar:active {
+    transform: scale(0.90); /* Efeito de compressão ao clicar */
+}
+
+.profile-avatar {
+    position: relative; /* Necessário para posicionar o menu */
+    transition: transform 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Menu de Logout (Dropdown) */
+.profile-menu {
+    position: absolute;
+    top: 120%;
+    right: 0;
+    background: rgba(13, 17, 23, 0.95);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    min-width: 160px;
+    padding: 8px;
+    display: none; /* Escondido por padrão */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+    z-index: 100;
+}
+
+.profile-menu.show {
+    display: block;
+    animation: menuFadeIn 0.2s ease-out;
+}
+
+@keyframes menuFadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.logout-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    color: #ff4d4d; /* Cor de alerta para saída */
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: background 0.2s;
+}
+
+.logout-item:hover {
+    background: rgba(255, 77, 77, 0.1);
 }
